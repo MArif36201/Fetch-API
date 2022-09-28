@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Api Response</title>
+    <style>
+        table, th, td {
+            border: solid 2px rgb(7, 30, 236);
+            color: blue;
+            font-size: 1rem;
+            border-collapse: collapse;
+            padding: 2px 3px;
+            text-align: center;
+        }
+        th {
+            font-weight:bold;
+        }
+    </style>
+</head>
+<body>
+    <input type='button' onclick='get_data()' value='Create Table' />
+    <p id='showData'></p>
+</body>
+<script>
+  let arrBirds;
+  let get_data = async() => {
+    let url = "https://fakestoreapi.com/products";
+    let response = await fetch (url);
+    arr = await response.json();
+    make_the_table();
+  }
+  let make_the_table = () => {
+    let col = [];
+    for (let i = 0; i < arr.length; i++) {
+      for (let key in arr[i]) {
+        if (col.indexOf(key) === -1) {
+          col.push(key);
+        }
+      }
+    }
+    const table = document.createElement("table");
+    let tr = table.insertRow(-1);
+    for (let i = 0; i < col.length; i++) {
+      let th = document.createElement("th");
+      th.innerHTML = col[i];
+      tr.appendChild(th);
+    }
+    for (let i = 0; i < arr.length; i++) {
+      tr = table.insertRow(-1);
+      for (let j = 0; j < col.length; j++) {
+        let tabCell = tr.insertCell(-1);
+        tabCell.innerHTML = arr[i][col[j]];
+      }
+    }
+    const divShowData = document.getElementById('showData');
+    divShowData.innerHTML = "";
+    divShowData.appendChild(table);
+  }
+</script>
+</html>
