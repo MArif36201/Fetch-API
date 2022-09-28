@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch Api</title>
+
+</head>
+<body>
+
+    <script>
+        fetch("https://fakestoreapi.com/users")
+        .then(async (response) => {
+            return await response.json();
+        })
+        .then((result) => {
+            document.write(`<table style='border: 1px solid black; margin:auto ;margin-top:200px; color:blue; font-size:1.5rem'><tr>`)
+            document.write(` <th>id</th> <th>Phone</th><th>Name</th> <th>lastname</th><th>Password</th><th>Zipcode</th> <th>City</th></tr>`)
+
+            for(var x in result){
+                document.write(`<tr style='border: 1px solid black;'>`)
+              var a =  (` <td style='border: 1px solid black;'>${result[x].id}</td><td style='border: 1px solid black;'>${result[x].phone}</td><td style='border: 1px solid black;'> ${result[x].name.firstname} </td><td style='border: 1px solid black;'> ${result[x].name.lastname} </td>  <td style='border: 1px solid black;'>${result[x].password} <td style='border: 3px solid green;'> ${result[x].address.zipcode}  </td> <td style='border: 1px solid black;'>${result[x].address.city} </td>`)
+                document.write(a)
+                document.write(`</tr>`)
+             }
+            document.write(`</table>`)
+
+            console.log(result);
+        })
+        .catch((error) => {
+            console.log("can not fetch data");
+        })
+    </script>
+</body>
+</html>
